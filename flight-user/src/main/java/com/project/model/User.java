@@ -23,7 +23,9 @@ public class User {
     private String lastName;
     private String password;
     private String email;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private Gender gender;
     @Column(nullable = false)
     private LocalDate dob;
 

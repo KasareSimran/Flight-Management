@@ -25,9 +25,9 @@ public class JwtValidator extends OncePerRequestFilter {
 
         if(jwt != null){
             try{
-                String email=JwtProvider.getEmailFromJwtToken(jwt);
+                String mobileNumber=JwtProvider.getMobileNumberFromJwtToken(jwt);
                 List<GrantedAuthority> authorities=new ArrayList<>();
-                Authentication authentication=new UsernamePasswordAuthenticationToken(email,null,authorities);
+                Authentication authentication=new UsernamePasswordAuthenticationToken(mobileNumber,null,authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

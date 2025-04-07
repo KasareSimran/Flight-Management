@@ -6,7 +6,9 @@ package com.project.config;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -26,7 +28,12 @@ import java.util.Collections;
 public class AppConfig {
 
      @Bean
-     SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception {
+     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+          return config.getAuthenticationManager();
+     }
+
+     @Bean
+     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception {
           http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                   .authorizeHttpRequests(Authorize -> Authorize.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
                   .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
@@ -59,6 +66,7 @@ public class AppConfig {
 
      @Bean
      PasswordEncoder passwordEncoder(){
+
           return new BCryptPasswordEncoder();
      }
 }

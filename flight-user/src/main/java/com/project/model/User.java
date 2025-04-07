@@ -28,5 +28,6 @@ public class User {
     private Gender gender;
     @Column(nullable = false)
     private LocalDate dob;
+    private String role = "USER";
 
 }

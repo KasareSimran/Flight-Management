@@ -1,6 +1,7 @@
 package com.project.service;
 
 import com.project.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface UserService {
     void deleteUser(Long id);
     User findUserByMobile(String mobileNumber);
 
+
+    UserDetails loadUserByUsername(String email);
 }

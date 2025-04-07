@@ -10,8 +10,11 @@ import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,30 +27,15 @@ public class UserController {
     private UserRepo userRepo;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserService userService;
 
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    // Register
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.registerUser(user));
-    }
 
-    // Login
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getMobileNumber(),
-                        loginRequest.getPassword()
-                )
-        );
-        String jwt = JwtProvider.generateToken(authentication);
-        return ResponseEntity.ok(jwt);
-    }
+
 
     // Get Current User
     @GetMapping("/api/me")

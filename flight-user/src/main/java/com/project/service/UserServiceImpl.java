@@ -5,9 +5,12 @@ import com.project.exception.UserException;
 import com.project.model.User;
 import com.project.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +67,17 @@ public class UserServiceImpl implements UserService{
         return userRepo.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+    }
+
+
+    public UserDetails loadUserByUsername(String mobileNumber) throws UsernameNotFoundException {
+        User user = userRepo.findByMobileNumber(mobileNumber)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getMobileNumber(),
+                user.getPassword(),
+                new ArrayList<>()
+        );
     }
 }

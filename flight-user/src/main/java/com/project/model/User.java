@@ -24,9 +24,7 @@ public class User {
     private String password;
     private String email;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
     private Gender gender;
-    @Column(nullable = false)
     private LocalDate dob;
     private String role = "USER"; //by default
 

@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/flight-user/pom.xml" />
+        <option value="$PROJECT_DIR$/flight-Flight/pom.xml" />
       </list>
     </option>
   </component>

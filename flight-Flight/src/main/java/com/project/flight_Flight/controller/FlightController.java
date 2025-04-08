@@ -4,9 +4,12 @@ package com.project.flight_Flight.controller;
 import com.project.flight_Flight.model.Flight;
 import com.project.flight_Flight.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -48,6 +51,18 @@ public class FlightController {
     public ResponseEntity<List<Flight>> searchFlight(@RequestParam String fromLocation, @RequestParam String toLocation){
         return ResponseEntity.ok(flightService.searchFlights(fromLocation,toLocation));
     }
+
+    @GetMapping("/search-by-date")
+    public List<Flight> getFlightsByDateRange(
+            @RequestParam("start")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+
+            @RequestParam("end")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+
+        return flightService.getFlightsByDateRange(start, end);
+    }
+
 
 
 

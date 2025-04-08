@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -14,5 +15,10 @@ public interface FlightRepo extends JpaRepository<Flight,Long> {
 
     @Query("SELECT f FROM Flight f WHERE f.fromLocation = :from AND f.toLocation = :to")
     List<Flight> searchFlights(@Param("from") String fromLocation, @Param("to") String toLocation);
+
+    @Query("SELECT f FROM Flight f WHERE f.departureTime BETWEEN :startDate AND :endDate")
+    List<Flight> findByDepartureDateRange(@Param("startDate") LocalDateTime startDate,
+                                          @Param("endDate") LocalDateTime endDate);
+
 
 }

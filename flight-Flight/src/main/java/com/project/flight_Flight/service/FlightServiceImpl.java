@@ -5,6 +5,7 @@ import com.project.flight_Flight.repository.FlightRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -58,5 +59,10 @@ public class FlightServiceImpl implements FlightService{
     @Override
     public List<Flight> searchFlights(String fromLocation, String toLocation) {
         return flightRepo.searchFlights(fromLocation, toLocation);
+    }
+
+    @Override
+    public List<Flight> getFlightsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return flightRepo.findByDepartureDateRange(startDate, endDate);
     }
 }

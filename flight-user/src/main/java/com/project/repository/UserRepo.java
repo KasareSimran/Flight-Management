@@ -9,7 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepo extends JpaRepository <User,Long>{
     Optional<User> findByMobileNumber(String mobileNumber);
-//    @Query("SELECT u FROM User u WHERE u.mobileNumber = :mobileNumber")
-//    Optional<User> getUserByMobile(@Param("mobileNumber") String mobileNumber);
 
 }

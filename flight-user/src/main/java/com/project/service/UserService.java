@@ -12,7 +12,5 @@ public interface UserService {
     User updateUser(Long id, User updatedUser) throws Throwable;
     void deleteUser(Long id);
     User findUserByMobile(String mobileNumber);
-
-
     UserDetails loadUserByUsername(String email);
 }

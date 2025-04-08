@@ -11,5 +11,5 @@ public interface FlightService {
     void deleteFlight(Long id);
     Flight getFlightById(Long id) throws Exception;
     List<Flight> getAllFlights();
-    List<Flight> searchFlights(String from, String to);
+    List<Flight> searchFlights(String fromLocation, String toLocation);
 }

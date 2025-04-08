@@ -56,7 +56,7 @@ public class FlightServiceImpl implements FlightService{
     }
 
     @Override
-    public List<Flight> searchFlights(String from, String to) {
-        return flightRepo.searchFlights(from, to);
+    public List<Flight> searchFlights(String fromLocation, String toLocation) {
+        return flightRepo.searchFlights(fromLocation, toLocation);
     }
 }

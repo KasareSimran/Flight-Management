@@ -10,9 +10,9 @@ import java.util.List;
 
 @Repository
 public interface FlightRepo extends JpaRepository<Flight,Long> {
-    List<Flight> findByFromAndTo(String from ,String to);
+    List<Flight> findByFromLocationAndToLocation(String fromLocation ,String toLocation);
 
     @Query("SELECT f FROM Flight f WHERE f.fromLocation = :from AND f.toLocation = :to")
-    List<Flight> searchFlights(@Param("from") String from, @Param("to") String to);
+    List<Flight> searchFlights(@Param("from") String fromLocation, @Param("to") String toLocation);
 
 }

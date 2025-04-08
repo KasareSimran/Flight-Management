@@ -45,8 +45,8 @@ public class FlightController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Flight>> searchFlight(@RequestParam String from, @RequestParam String to){
-        return ResponseEntity.ok(flightService.searchFlights(from,to));
+    public ResponseEntity<List<Flight>> searchFlight(@RequestParam String fromLocation, @RequestParam String toLocation){
+        return ResponseEntity.ok(flightService.searchFlights(fromLocation,toLocation));
     }
 
 

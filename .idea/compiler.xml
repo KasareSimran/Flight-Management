@@ -33,7 +33,7 @@
       <module name="ServiceRegistry" options="-parameters" />
       <module name="flight-Booking" options="-parameters --add-modules java.base" />
       <module name="flight-Flight" options="-parameters" />
-      <module name="flight-user" options="-parameters" />
+      <module name="flight-user" options="-parameters --add-modules java.base" />
     </option>
   </component>
 </project>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class JwtProvider {
 
     public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parser()
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(JwtConstant.SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody();
@@ -24,4 +24,4 @@ public class JwtProvider {
             return false;
         }
     }
-}}
+}

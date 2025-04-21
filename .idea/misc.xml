@@ -6,6 +6,7 @@
         <option value="$PROJECT_DIR$/flight-user/pom.xml" />
         <option value="$PROJECT_DIR$/flight-Flight/pom.xml" />
         <option value="$PROJECT_DIR$/flight-Booking/pom.xml" />
+        <option value="$PROJECT_DIR$/ServiceRegistry/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,10 +1,8 @@
 package com.project.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -17,18 +15,8 @@ public class JwtProvider {
     private static final String SECRET = JwtConstant.SECRET_KEY;
     private static final SecretKey key = Keys.hmacShaKeyFor(Base64.getEncoder().encode(SECRET.getBytes()));
 
-    public String generateToken(Authentication authentication) {
-        return Jwts.builder()
-                .setIssuer("Simran")
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 24 hrs
-                .claim("mobileNumber", authentication.getName())
-                .signWith(key)
-                .compact();
-    }
-
     public String getMobileNumberFromToken(String token) {
-        token = token.substring(7); // remove "Bearer "
+        token = token.substring(7); // remove Bearer
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -40,10 +28,14 @@ public class JwtProvider {
 
     public boolean isTokenValid(String token) {
         try {
-            token = token.substring(7);
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            token = token.substring(7); // remove Bearer
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
+            System.out.println("JWT validation error: " + e.getMessage());
             return false;
         }
     }

@@ -3,7 +3,6 @@ package com.project.service;
 
 import com.project.exception.UserException;
 import com.project.model.Booking;
-import com.project.model.Flight;
 import com.project.model.User;
 import com.project.repository.UserRepo;
 import org.slf4j.Logger;
@@ -36,6 +35,8 @@ public class UserServiceImpl implements UserService{
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
+    public UserServiceImpl() {
+    }
 
 
     @Override
@@ -77,30 +78,18 @@ public class UserServiceImpl implements UserService{
 
         // Fetch bookings from Booking Service
         ArrayList<Booking> bookingsOfUser = restTemplate.getForObject(
-                "http://localhost:7445/api/bookings/user/"+user.getId(),
+                "http://localhost:7445/api/bookings/user/" + id,
                 ArrayList.class
         );
 
-        logger.info("{}",bookingsOfUser);
-
-         List<Booking> bookingList=bookingsOfUser.stream().map(booking -> {
-             //api call to flight service to get the flight
-//             http://localhost:7446/api/flights/2
-             //set flight to booking
-             ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/2", Flight.class);
-              Flight flight=forEntity.getBody();
-              logger.info("Response status code:{}",forEntity.getStatusCode());
-             //return the booking
-             return booking;
-
-         }).collect(Collectors.toList());
-
-
-
-        user.setBookings(bookingList);
+        user.setBookings(bookingsOfUser);
 
         return user;
     }
+
+
+
+
 
 
     @Override

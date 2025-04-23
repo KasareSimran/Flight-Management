@@ -1,22 +1,17 @@
 package com.project.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Data
-@Builder
 
 public class Booking {
 
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,21 +23,14 @@ public class Booking {
 
     private LocalDateTime bookingTime=LocalDateTime.now();
 
-    private Flight flight;
+
+
 
 
 
     public Booking() {
     }
 
-    public Booking(Long id, Long userId, Long flightId, int numberOfSeats, double totalAmount, LocalDateTime bookingTime) {
-        this.id = id;
-        this.userId = userId;
-        FlightId = flightId;
-        this.numberOfSeats = numberOfSeats;
-        this.totalAmount = totalAmount;
-        this.bookingTime = bookingTime;
-    }
 
     public Long getId() {
         return id;

@@ -102,7 +102,8 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-netflix-eureka-server</artifactId>
 		</dependency>
-	</dependencies>
+
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

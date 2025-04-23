@@ -47,17 +47,36 @@ public class UserServiceImpl implements UserService{
         return userRepo.save(user);
     }
 
+
+    //this is using resttemplate
     @Override
     public List<User> getAllUsers() {
         List<User> users=userRepo.findAll();
          for (User user : users) {
             try {
                 // Call booking service for each user
-                List<Booking> bookings = restTemplate.getForObject(
+                Booking[] bookingsOfUser = restTemplate.getForObject(
                         "http://localhost:7445/api/bookings/user/" + user.getId(),
-                        List.class
+                        Booking[].class
                 );
-                user.setBookings(bookings);
+                logger.info("{}",bookingsOfUser);
+
+                List<Booking> bookings = Arrays.stream(bookingsOfUser).toList();
+
+
+                List<Booking> bookingList = bookings.stream().map(booking -> {
+                    //api call to flight service to get flight
+//            http://localhost:7446/api/flights/2
+                    ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/"+booking.getFlightId(), Flight.class);
+                    Flight flight=forEntity.getBody();
+                    //set the flight to booking
+                    booking.setFlight(flight);
+                    //return booking
+                    return booking;
+                }).collect(Collectors.toList());
+
+
+                user.setBookings(bookingList);
             } catch (Exception e) {
                 // Log and continue if booking service fails
                 logger.error("Failed to fetch bookings for user id: " + user.getId(), e);
@@ -69,6 +88,8 @@ public class UserServiceImpl implements UserService{
         return users;
     }
 
+
+    //this is using resttemplate
     @Override
     public User getUserById(Long id) throws Throwable {
         Optional<User> userOptional = userRepo.findById(id);

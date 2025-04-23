@@ -3,6 +3,7 @@ package com.project.service;
 
 import com.project.exception.UserException;
 import com.project.model.Booking;
+import com.project.model.Flight;
 import com.project.model.User;
 import com.project.repository.UserRepo;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,12 +80,28 @@ public class UserServiceImpl implements UserService{
         User user = userOptional.get();
 
         // Fetch bookings from Booking Service
-        ArrayList<Booking> bookingsOfUser = restTemplate.getForObject(
-                "http://localhost:7445/api/bookings/user/" + id,
-                ArrayList.class
+        Booking[] bookingsOfUser = restTemplate.getForObject(
+                "http://localhost:7445/api/bookings/user/" + user.getId(),
+                Booking[].class
         );
+        logger.info("{}",bookingsOfUser);
 
-        user.setBookings(bookingsOfUser);
+        List<Booking> bookings = Arrays.stream(bookingsOfUser).toList();
+
+
+        List<Booking> bookingList = bookings.stream().map(booking -> {
+           //api call to flight service to get flight
+//            http://localhost:7446/api/flights/2
+            ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/"+booking.getFlightId(), Flight.class);
+            Flight flight=forEntity.getBody();
+            //set the flight to booking
+            booking.setFlight(flight);
+            //return booking
+            return booking;
+        }).collect(Collectors.toList());
+
+
+        user.setBookings(bookingList);
 
         return user;
     }

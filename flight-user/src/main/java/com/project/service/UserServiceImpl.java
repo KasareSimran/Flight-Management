@@ -2,8 +2,11 @@ package com.project.service;
 
 
 import com.project.exception.UserException;
+import com.project.model.Booking;
 import com.project.model.User;
 import com.project.repository.UserRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +31,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private RestTemplate restTemplate;
 
+    private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
+
 
 
     @Override
@@ -43,13 +48,22 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUserById(Long id) throws Throwable {
-        Optional<User> user = userRepo.findById(id);
-        if (!user.isPresent()) {
+        Optional<User> userOptional = userRepo.findById(id);
+        if (!userOptional.isPresent()) {
             throw new UserException("invalid user id");
         }
-        //fetch booking of the above user from booking service
-//        http://localhost:7445/api/bookings/user/152
-        return user.get();
+
+        User user = userOptional.get();
+
+        // Fetch bookings from Booking Service
+        List<Booking> bookingsOfUser = restTemplate.getForObject(
+                "http://localhost:7445/api/bookings/user/"+user.getId(),
+                ArrayList.class
+        );
+
+        user.setBookings(bookingsOfUser);
+
+        return user;
     }
 
 

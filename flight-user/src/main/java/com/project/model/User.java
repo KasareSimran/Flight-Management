@@ -4,6 +4,7 @@ package com.project.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,6 +26,16 @@ public class User {
     private Gender gender;
     private LocalDate dob;
     private String role = "USER"; //by default
+    @Transient
+    private List<Booking> bookings;
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
 
     public User(Long id, String mobileNumber, String firstName, String lastName, String password, String email, Gender gender, LocalDate dob, String role) {

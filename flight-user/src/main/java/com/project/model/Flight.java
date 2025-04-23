@@ -1,4 +1,4 @@
-package com.project.flight_Flight.model;
+package com.project.model;
 
 
 import jakarta.persistence.Entity;
@@ -132,3 +132,4 @@ public class Flight {
         this.price = price;
     }
 }
+

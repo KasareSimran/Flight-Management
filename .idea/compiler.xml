@@ -32,7 +32,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ServiceRegistry" options="-parameters" />
       <module name="flight-Booking" options="-parameters --add-modules java.base" />
-      <module name="flight-Flight" options="-parameters" />
+      <module name="flight-Flight" options="-parameters --add-modules java.base" />
       <module name="flight-user" options="-parameters --add-modules java.base" />
     </option>
   </component>

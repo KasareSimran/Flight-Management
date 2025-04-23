@@ -28,6 +28,8 @@ public class Booking {
 
     private LocalDateTime bookingTime=LocalDateTime.now();
 
+    private Flight flight;
+
 
 
     public Booking() {

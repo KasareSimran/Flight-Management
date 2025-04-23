@@ -39,11 +39,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserById(Long id) throws Throwable {
         Optional<User> user = userRepo.findById(id);
-        if(user.isPresent()){
-            return user.get();
+        if (!user.isPresent()) {
+            throw new UserException("invalid user id");
         }
-        throw new UserException("invalid user id");
+        return user.get();
     }
+
 
     @Override
     public User updateUser(Long id, User updatedUser) throws Throwable {

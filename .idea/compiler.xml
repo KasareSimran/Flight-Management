@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="flight-Booking" />
         <module name="ServiceRegistry" />
       </profile>
-      <profile name="Annotation profile for flight-Booking" enabled="true">
+      <profile name="Annotation profile for flight-user" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -18,7 +19,6 @@
         </processorPath>
         <module name="flight-user" />
         <module name="flight-Flight" />
-        <module name="flight-Booking" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -33,7 +33,7 @@
       <module name="ServiceRegistry" options="-parameters" />
       <module name="flight-Booking" options="-parameters --add-modules java.base" />
       <module name="flight-Flight" options="-parameters" />
-      <module name="flight-user" options="-parameters" />
+      <module name="flight-user" options="-parameters --add-modules java.base" />
     </option>
   </component>
 </project>

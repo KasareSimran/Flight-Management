@@ -3,11 +3,13 @@ package com.project.service;
 
 import com.project.exception.UserException;
 import com.project.model.Booking;
+import com.project.model.Flight;
 import com.project.model.User;
 import com.project.repository.UserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -73,12 +76,28 @@ public class UserServiceImpl implements UserService{
         User user = userOptional.get();
 
         // Fetch bookings from Booking Service
-        List<Booking> bookingsOfUser = restTemplate.getForObject(
+        ArrayList<Booking> bookingsOfUser = restTemplate.getForObject(
                 "http://localhost:7445/api/bookings/user/"+user.getId(),
                 ArrayList.class
         );
 
-        user.setBookings(bookingsOfUser);
+        logger.info("{}",bookingsOfUser);
+
+         List<Booking> bookingList=bookingsOfUser.stream().map(booking -> {
+             //api call to flight service to get the flight
+//             http://localhost:7446/api/flights/2
+             //set flight to booking
+             ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/2", Flight.class);
+              Flight flight=forEntity.getBody();
+              logger.info("Response status code",forEntity.getStatusCode());
+             //return the booking
+             return booking;
+
+         }).collect(Collectors.toList());
+
+
+
+        user.setBookings(bookingList);
 
         return user;
     }

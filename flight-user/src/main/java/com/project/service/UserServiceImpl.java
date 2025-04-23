@@ -43,7 +43,24 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getAllUsers() {
-        return userRepo.findAll();
+        List<User> users=userRepo.findAll();
+         for (User user : users) {
+            try {
+                // Call booking service for each user
+                List<Booking> bookings = restTemplate.getForObject(
+                        "http://localhost:7445/api/bookings/user/" + user.getId(),
+                        List.class
+                );
+                user.setBookings(bookings);
+            } catch (Exception e) {
+                // Log and continue if booking service fails
+                logger.error("Failed to fetch bookings for user id: " + user.getId(), e);
+                user.setBookings(new ArrayList<>());
+            }
+        }
+
+
+        return users;
     }
 
     @Override

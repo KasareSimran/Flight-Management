@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService{
             try {
                 // Call booking service for each user
                 Booking[] bookingsOfUser = restTemplate.getForObject(
-                        "http://localhost:7445/api/bookings/user/" + user.getId(),
+                        "http://FLIGHT-BOOKING/api/bookings/user/" + user.getId(),
                         Booking[].class
                 );
                 logger.info("{}",bookingsOfUser);
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
                 List<Booking> bookingList = bookings.stream().map(booking -> {
                     //api call to flight service to get flight
 //            http://localhost:7446/api/flights/2
-                    ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/"+booking.getFlightId(), Flight.class);
+                    ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://FLIGHT-FLIGHT/api/flights/"+booking.getFlightId(), Flight.class);
                     Flight flight=forEntity.getBody();
                     //set the flight to booking
                     booking.setFlight(flight);

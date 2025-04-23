@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService{
     public User getUserById(Long id) throws Throwable {
         Optional<User> userOptional = userRepo.findById(id);
         if (!userOptional.isPresent()) {
+
             throw new UserException("invalid user id");
         }
 
@@ -86,8 +87,6 @@ public class UserServiceImpl implements UserService{
 
         return user;
     }
-
-
 
 
 

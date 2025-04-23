@@ -12,7 +12,6 @@ public class Booking {
 
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
@@ -23,6 +22,7 @@ public class Booking {
 
     private LocalDateTime bookingTime=LocalDateTime.now();
 
+    private Flight flight;
 
 
 

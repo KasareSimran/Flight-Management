@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService{
              //set flight to booking
              ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/2", Flight.class);
               Flight flight=forEntity.getBody();
-              logger.info("Response status code",forEntity.getStatusCode());
+              logger.info("Response status code:{}",forEntity.getStatusCode());
              //return the booking
              return booking;
 

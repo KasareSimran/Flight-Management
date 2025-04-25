@@ -51,19 +51,19 @@ public class UserController {
     }
 
     // Get by ID
-    @GetMapping("/api/{id}")
+    @GetMapping("/api/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) throws Throwable {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     // Update
-    @PutMapping("/api/{id}")
+    @PutMapping("/api/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) throws Throwable {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
     // Delete
-    @DeleteMapping("/api/{id}")
+    @DeleteMapping("/api/users/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully");

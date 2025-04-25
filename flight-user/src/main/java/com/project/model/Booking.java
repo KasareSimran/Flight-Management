@@ -31,6 +31,13 @@ public class Booking {
     public Booking() {
     }
 
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
 
     public Long getId() {
         return id;

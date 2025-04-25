@@ -2,6 +2,7 @@ package com.project.service;
 
 
 import com.project.exception.UserException;
+import com.project.external.services.FlightService;
 import com.project.model.Booking;
 import com.project.model.Flight;
 import com.project.model.User;
@@ -35,7 +36,16 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private RestTemplate restTemplate;
 
+
+    @Autowired
+    private FlightService flightService;
+
+
+
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
+
+
+
 
     public UserServiceImpl() {
     }
@@ -113,8 +123,12 @@ public class UserServiceImpl implements UserService{
         List<Booking> bookingList = bookings.stream().map(booking -> {
            //api call to flight service to get flight
 //            http://localhost:7446/api/flights/2
-            ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/"+booking.getFlightId(), Flight.class);
-            Flight flight=forEntity.getBody();
+//            ResponseEntity<Flight> forEntity = restTemplate.getForEntity("http://localhost:7446/api/flights/"+booking.getFlightId(), Flight.class);
+//            Flight flight=forEntity.getBody();
+
+            //using feignClient
+            Flight flight=flightService.getFlight(booking.getFlightId());
+
             //set the flight to booking
             booking.setFlight(flight);
             //return booking

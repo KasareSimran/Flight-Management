@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Config-Server" />
         <module name="flight-Booking" />
         <module name="ServiceRegistry" />
       </profile>
@@ -24,6 +25,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ApiGateway" target="21" />
+      <module name="Config-Server" target="21" />
       <module name="flight-Booking" target="21" />
       <module name="flight-Flight" target="21" />
       <module name="flight-user" target="21" />
@@ -32,11 +34,12 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ApiGateway" options="-parameters --add-modules java.base" />
+      <module name="ApiGateway" options="-parameters" />
+      <module name="Config-Server" options="-parameters" />
       <module name="ServiceRegistry" options="-parameters" />
-      <module name="flight-Booking" options="-parameters --add-modules java.base" />
-      <module name="flight-Flight" options="-parameters --add-modules java.base" />
-      <module name="flight-user" options="-parameters --add-modules java.base" />
+      <module name="flight-Booking" options="-parameters" />
+      <module name="flight-Flight" options="-parameters" />
+      <module name="flight-user" options="-parameters" />
     </option>
   </component>
 </project>

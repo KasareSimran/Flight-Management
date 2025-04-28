@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/flight-Booking/pom.xml" />
         <option value="$PROJECT_DIR$/ServiceRegistry/pom.xml" />
         <option value="$PROJECT_DIR$/ApiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/Config-Server/pom.xml" />
       </list>
     </option>
   </component>
